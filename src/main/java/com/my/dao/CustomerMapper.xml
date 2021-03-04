@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.dao.CustomerMapper">
+
+    <insert id="addCustom" parameterType="Customer">
+        insert into shop.customer(cardId,customName,money,tel)
+        value (#{cardId},#{customName},#{money},#{tel})
+    </insert>
+
+    <delete id="deleteCustomByTel" parameterType="int">
+        delete from shop.customer where tel=#{tel}
+    </delete>
+
+    <delete id="deleteCustomById" parameterType="int">
+        delete from shop.customer where id=#{id}
+    </delete>
+
+    <update id="updateCustom" parameterType="Customer">
+        update shop.customer set cardId=#{cardId},customName=#{customName},money=#{money},tel=#{tel}
+        where id=#{id}
+    </update>
+
+    <update id="updateMoney" parameterType="Customer">
+        update shop.customer set money=money-#{money}
+        where cardId=#{cardId}
+    </update>
+
+    <update id="updateRechange" parameterType="Customer">
+        update shop.customer set money=money + #{money}
+        where cardId=#{cardId}
+    </update>
+
+    <!--    查询-->
+    <select id="queryByCardId" resultType="Customer">
+        select * from shop.customer where cardId=#{cardId}
+    </select>
+
+    <select id="queryByName" resultType="Customer">
+        select * from shop.customer where customName=#{customName}
+    </select>
+
+    <select id="queryAllCustom" resultType="Customer">
+        select * from shop.customer
+    </select>
+</mapper>

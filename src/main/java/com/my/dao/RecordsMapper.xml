@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.dao.RecordsMapper">
+
+    <insert id="addRecords" parameterType="Records">
+        insert into shop.records (cardId,consumeTime,customName,tel,money,ps)
+        value (#{cardId},#{consumeTime},#{customName},#{tel},#{money},#{ps})
+    </insert>
+
+
+    <delete id="deleteRecordsById" parameterType="int">
+        delete from shop.records where id=#{id}
+    </delete>
+
+    <update id="updateRecords" parameterType="Records">
+        update shop.records set cardId=#{cardId},customName=#{customName},tel=#{tel},money=#{money},ps=#{ps}
+        where id=#{id}
+    </update>
+    <select id="queryByName" resultType="Records">
+        select * from shop.records where customName=#{customName}
+    </select>
+
+    <select id="queryById" parameterType="int" resultType="Records">
+        select * from shop.records
+        <where>
+            <if test="id != null">
+                id=#{id}
+            </if>
+            <if test="cardId != null">
+                or cardId=#{cardId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAllRecords" resultType="Records">
+        select * from shop.records
+    </select>
+
+    <select id="queryRecords" resultType="Records">
+        select * from shop.records
+        <where>
+            <if test="cardId != null">
+                cardId=#{cardId}
+            </if>
+            <if test="tel != null">
+                or tel =#{tel}
+            </if>
+            <if test="customName != null">
+                or customName =#{customName}
+            </if>
+        </where>
+    </select>
+
+</mapper>
